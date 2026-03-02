@@ -1,0 +1,176 @@
+/* ═══════════════════════════════════════════════════════════
+   TOPBAR.CSS  —  Kids Cosmos School
+   ═══════════════════════════════════════════════════════════ */
+
+.topbar {
+  background: linear-gradient(90deg, #1a5f7a 0%, #2bb0ed 55%, #5f9ce6 100%);
+  color: white;
+  font-size: 13px;
+  position: sticky;
+  top: 0;
+  z-index: 1001;               /* sits above navbar */
+  transition: transform .35s cubic-bezier(.22,1,.36,1),
+              opacity  .35s ease;
+  will-change: transform;
+  overflow: hidden;
+}
+
+/* Subtle shimmer strip along the bottom edge */
+.topbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+  animation: topbarShimmer 3s linear infinite;
+}
+@keyframes topbarShimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+.topbar-visible { transform: translateY(0); opacity: 1; }
+.topbar-hidden  { transform: translateY(-100%); opacity: 0; }
+
+/* ── Inner layout ── */
+.topbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Groups ── */
+.tb-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.tb-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255,255,255,.3);
+  display: block;
+}
+
+/* ── Each contact item ── */
+.tb-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255,255,255,.92);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color .25s;
+}
+.tb-item:hover { color: white; text-decoration: none; }
+
+/* Glass icon bubble */
+.tb-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  font-size: 11px;
+  flex-shrink: 0;
+  transition: background .25s, transform .25s;
+}
+.tb-item:hover .tb-icon-wrap {
+  background: rgba(255,255,255,.32);
+  transform: scale(1.15);
+}
+
+/* ── Marquee (centre) ── */
+.tb-marquee-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  /* left/right fade masks */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.tb-marquee {
+  display: flex;
+  white-space: nowrap;
+  animation: marqueeRoll 28s linear infinite;
+  gap: 0;
+}
+.tb-marquee:hover { animation-play-state: paused; }
+@keyframes marqueeRoll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.tb-marquee-item {
+  display: inline-block;
+  padding: 0 48px;
+  color: rgba(255,255,255,.88);
+  font-size: 13px;
+  font-weight: 500;
+}
+.tb-marquee-item::before {
+  content: '✦';
+  margin-right: 14px;
+  opacity: .5;
+  font-size: 10px;
+}
+
+/* ── Social icons ── */
+.tb-socials {
+  display: flex;
+  gap: 6px;
+}
+.tb-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+  color: white;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all .3s;
+}
+.tb-social:hover {
+  background: white;
+  color: #2bb0ed;
+  transform: translateY(-3px) scale(1.12);
+  border-color: white;
+  text-decoration: none;
+}
+
+/* ── Email text truncate on mid screens ── */
+.tb-email span:last-child {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .tb-phones    { display: none; }   /* hide phones — marquee carries the info */
+  .tb-email span:last-child { display: none; } /* icon only */
+}
+
+@media (max-width: 768px) {
+  .topbar-inner { padding: 0 14px; gap: 10px; height: 38px; }
+  .tb-right     { gap: 8px; }
+  .tb-email     { display: none; }   /* just socials + marquee on mobile */
+}
+
+@media (max-width: 480px) {
+  .tb-divider   { display: none; }
+  .topbar-inner { gap: 6px; }
+}

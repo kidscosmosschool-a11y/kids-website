@@ -1,0 +1,436 @@
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION.CSS  —  Kids Cosmos School
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── RESET: kill every possible stray line ─────────────── */
+.navbar,
+.navbar *,
+.navbar-brand,
+.navbar-brand *,
+.navbar-brand h1,
+.navbar-brand a,
+.nav-link,
+.nav-link * {
+  border-bottom: none !important;
+  text-decoration: none !important;
+  outline: none;
+}
+
+/* ─── NAVBAR BASE ────────────────────────────────────────── */
+.navbar {
+  background: white;
+  position: sticky;
+  top: 42px;          /* sits below the topbar */
+  z-index: 1000;
+  transition: top .35s ease,
+              box-shadow .35s ease,
+              background .35s ease,
+              padding .35s ease;
+  box-shadow: 0 2px 16px rgba(0,0,0,.07);
+}
+
+/* Scrolled state — slightly glass-morphism, smaller */
+.navbar-scrolled {
+  top: 0;             /* topbar has hidden, sit at top */
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 28px rgba(43,176,237,.12);
+}
+
+/* ─── CONTAINER ──────────────────────────────────────────── */
+.nav-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: height .35s ease;
+}
+.navbar-scrolled .nav-container { height: 62px; }
+
+/* ─── BRAND ──────────────────────────────────────────────── */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none !important;
+  border: none !important;
+  flex-shrink: 0;
+  transition: transform .3s ease;
+}
+.navbar-brand:hover { transform: translateY(-1px); }
+
+.brand-logo {
+  height: 54px;
+  width: auto;
+  transition: height .35s ease, transform .3s ease;
+  flex-shrink: 0;
+}
+.navbar-scrolled .brand-logo { height: 46px; }
+.navbar-brand:hover .brand-logo { transform: scale(1.04) rotate(-2deg); }
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.brand-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #2b6fa3;
+  letter-spacing: -.3px;
+  white-space: nowrap;
+  transition: font-size .35s;
+}
+.navbar-scrolled .brand-name { font-size: 20px; }
+.brand-tagline {
+  font-size: 11px;
+  color: #2bb0ed;
+  font-weight: 500;
+  letter-spacing: .5px;
+  opacity: .85;
+}
+
+/* ─── DESKTOP NAV ────────────────────────────────────────── */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  position: relative;
+  gap: 2px;
+}
+
+/* Sliding active underline pill */
+.nav-indicator {
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  background: linear-gradient(90deg, #2bb0ed, #5f9ce6);
+  border-radius: 2px;
+  transition: left .35s cubic-bezier(.22,1,.36,1),
+              width .35s cubic-bezier(.22,1,.36,1);
+  pointer-events: none;
+}
+
+/* ─── NAV LINKS ──────────────────────────────────────────── */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #333;
+  border-radius: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  white-space: nowrap;
+  transition: color .25s, background .25s;
+  position: relative;
+}
+.nav-link:hover   { color: #2bb0ed; background: #f0faff; }
+.nav-link.is-active { color: #2bb0ed; }
+
+/* ─── DROPDOWN ───────────────────────────────────────────── */
+.dropdown { position: relative; }
+
+.drop-chevron {
+  width: 10px; height: 10px;
+  stroke: currentColor;
+  transition: transform .3s ease;
+  margin-left: 2px;
+}
+.dropdown:hover .drop-chevron { transform: rotate(180deg); }
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.13), 0 0 0 1px rgba(43,176,237,.08);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease, transform .25s cubic-bezier(.22,1,.36,1),
+              visibility .25s;
+  z-index: 2000;
+  min-width: 360px;
+  padding: 10px;
+  pointer-events: none;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: all;
+}
+
+/* Small triangle arrow */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-bottom-color: white;
+  border-top: none;
+  filter: drop-shadow(0 -2px 2px rgba(0,0,0,.06));
+}
+
+.dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: background .2s, color .2s, transform .2s;
+  white-space: nowrap;
+}
+.dropdown-item:hover {
+  background: #f0faff;
+  color: #2bb0ed;
+  transform: translateX(4px);
+}
+.dropdown-item.drop-active { background: #e8f7ff; color: #2bb0ed; font-weight: 700; }
+.drop-emoji { font-size: 18px; flex-shrink: 0; }
+
+/* ─── ENROLL BUTTON ──────────────────────────────────────── */
+.btn-enroll-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #2bb0ed, #5f9ce6);
+  color: white;
+  padding: 10px 26px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(43,176,237,.35);
+  transition: all .3s;
+}
+.btn-enroll-nav:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(43,176,237,.45);
+  color: white;
+  text-decoration: none !important;
+}
+
+/* ─── HAMBURGER ──────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px; height: 42px;
+  background: #f0faff;
+  border: 1.5px solid #d6eeff;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 9px;
+  transition: background .3s;
+  flex-shrink: 0;
+}
+.hamburger:hover { background: #e0f5ff; }
+
+.ham-bar {
+  display: block;
+  width: 100%;
+  height: 2.5px;
+  background: #2b6fa3;
+  border-radius: 2px;
+  transition: transform .35s cubic-bezier(.22,1,.36,1),
+              opacity  .25s ease,
+              width    .3s ease;
+  transform-origin: center;
+}
+
+/* Morph to ✕ */
+.ham-open .bar-1 { transform: translateY(7.5px) rotate(45deg); }
+.ham-open .bar-2 { opacity: 0; transform: scaleX(0); }
+.ham-open .bar-3 { transform: translateY(-7.5px) rotate(-45deg); }
+
+/* ─── MOBILE DRAWER ──────────────────────────────────────── */
+.mobile-drawer {
+  position: fixed;
+  top: 0; right: 0;
+  width: min(340px, 88vw);
+  height: 100dvh;
+  background: white;
+  z-index: 1100;
+  box-shadow: -8px 0 40px rgba(0,0,0,.16);
+  transform: translateX(100%);
+  transition: transform .4s cubic-bezier(.22,1,.36,1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.mobile-drawer.drawer-open { transform: translateX(0); }
+
+.drawer-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Drawer header */
+.drawer-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 22px 18px;
+  border-bottom: 1px solid #eaf6ff;
+  background: linear-gradient(135deg, #f0faff, white);
+  flex-shrink: 0;
+}
+.drawer-logo { height: 48px; width: auto; }
+.drawer-header strong { display: block; color: #1a5f7a; font-size: 15px; font-weight: 800; }
+.drawer-header small  { font-size: 12px; color: #2bb0ed; }
+
+/* Drawer links */
+.drawer-links {
+  flex: 1;
+  padding: 12px 14px;
+  overflow-y: auto;
+}
+
+.drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none !important;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .2s;
+  margin-bottom: 3px;
+}
+.drawer-link:hover { background: #f0faff; color: #2bb0ed; }
+.drawer-active     { background: #e8f7ff; color: #2bb0ed; }
+
+.drawer-chevron {
+  width: 14px; height: 10px;
+  stroke: currentColor;
+  transition: transform .3s;
+  flex-shrink: 0;
+}
+.drawer-toggle.drop-open .drawer-chevron { transform: rotate(180deg); }
+
+/* Drawer sub-menu */
+.drawer-sub {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s cubic-bezier(.22,1,.36,1);
+  padding-left: 10px;
+}
+.sub-open { max-height: 600px; }
+
+.drawer-sub-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: background .2s, color .2s;
+  margin-bottom: 2px;
+}
+.drawer-sub-link:hover { background: #f0faff; color: #2bb0ed; }
+.drawer-sub-link .drop-emoji { font-size: 18px; }
+
+/* Drawer CTA */
+.drawer-cta {
+  padding: 16px 20px 28px;
+  flex-shrink: 0;
+  border-top: 1px solid #eaf6ff;
+  background: linear-gradient(160deg, #f0faff, white);
+}
+.btn-enroll-drawer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px 24px;
+  background: linear-gradient(135deg, #2bb0ed, #5f9ce6);
+  color: white;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none !important;
+  box-shadow: 0 6px 22px rgba(43,176,237,.35);
+  transition: all .3s;
+}
+.btn-enroll-drawer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(43,176,237,.45);
+  color: white;
+  text-decoration: none !important;
+}
+
+/* Overlay */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  backdrop-filter: blur(3px);
+  z-index: 1099;
+  animation: overlayFade .3s ease both;
+}
+@keyframes overlayFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .brand-name { font-size: 19px; }
+  .nav-link   { padding: 8px 12px; font-size: 14px; }
+  .btn-enroll-nav { padding: 9px 20px; font-size: 13px; }
+}
+
+@media (max-width: 900px) {
+  .desktop-nav    { display: none; }
+  .btn-enroll-nav { display: none; }
+  .hamburger      { display: flex; }
+  .nav-container  { height: 64px; }
+  .navbar-scrolled .nav-container { height: 58px; }
+}
+
+@media (max-width: 480px) {
+  .nav-container { padding: 0 16px; height: 60px; }
+  .brand-name { font-size: 17px; }
+  .brand-tagline { display: none; }
+  .brand-logo { height: 44px; }
+}

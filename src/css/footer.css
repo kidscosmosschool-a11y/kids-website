@@ -1,0 +1,357 @@
+/* ═══════════════════════════════════════════════════════════
+   FOOTER.CSS  —  Kids Cosmos School
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── REVEAL SYSTEM ─────────────────────────────────────── */
+.fc-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1),
+              transform .7s cubic-bezier(.22,1,.36,1);
+  transition-delay: var(--delay, 0s);
+}
+.fc-reveal.fc-visible { opacity: 1; transform: none; }
+
+/* ─── FOOTER BASE ────────────────────────────────────────── */
+.site-footer {
+  background: linear-gradient(160deg, #0e3d52 0%, #1a6080 35%, #2bb0ed 80%, #5f9ce6 100%);
+  color: white;
+  padding-top: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle grain texture overlay */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── WAVE ───────────────────────────────────────────────── */
+.footer-wave {
+  width: 100%;
+  line-height: 0;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.footer-wave svg {
+  width: 100%;
+  height: 80px;
+  display: block;
+}
+
+/* ─── CONTAINER ──────────────────────────────────────────── */
+.footer-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── GRID ───────────────────────────────────────────────── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1fr 1fr;
+  gap: 44px;
+  padding: 48px 0 44px;
+}
+
+/* ─── COLUMN HEADER ──────────────────────────────────────── */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.footer-brand-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.6);
+  flex-shrink: 0;
+}
+.footer-col h3 {
+  color: white;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  margin: 0;
+}
+
+/* ─── CONTACT LIST ───────────────────────────────────────── */
+.footer-contact-list {
+  list-style: none;
+  padding: 0; margin: 0 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: rgba(255,255,255,.82);
+  line-height: 1.55;
+  flex-wrap: wrap;
+}
+.footer-contact-list a {
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+  transition: color .25s;
+}
+.footer-contact-list a:hover { color: white; }
+
+.fc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px; height: 28px;
+  background: rgba(255,255,255,.12);
+  border-radius: 7px;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: background .25s;
+}
+.footer-contact-list li:hover .fc-icon { background: rgba(255,255,255,.22); }
+.fc-sep { color: rgba(255,255,255,.3); }
+
+/* ─── SOCIAL BUTTONS ─────────────────────────────────────── */
+.footer-socials {
+  display: flex;
+  gap: 10px;
+}
+.social-btn {
+  position: relative;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.14);
+  border: 1.5px solid rgba(255,255,255,.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: background .3s, border-color .3s, transform .3s;
+}
+.social-btn:hover {
+  background: rgba(255,255,255,.28);
+  border-color: white;
+  transform: translateY(-4px) scale(1.1);
+  color: white;
+  text-decoration: none;
+}
+/* Ripple on hover */
+.social-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  transform: scale(0);
+  transition: transform .4s ease, opacity .4s;
+  opacity: 0;
+}
+.social-btn:hover .social-ripple { transform: scale(1.8); opacity: 0; }
+
+/* ─── QUICK LINKS ────────────────────────────────────────── */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.78);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: all .25s;
+}
+.footer-link:hover {
+  color: white;
+  background: rgba(255,255,255,.1);
+  transform: translateX(6px);
+  text-decoration: none;
+}
+.fl-arrow { font-size: 18px; color: rgba(255,255,255,.4); transition: color .25s; }
+.footer-link:hover .fl-arrow { color: rgba(255,255,255,.8); }
+
+/* ─── GALLERY TITLE LINK ─────────────────────────────────── */
+.footer-gallery-title {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 800;
+  transition: opacity .25s;
+}
+.footer-gallery-title:hover { opacity: .8; color: white; text-decoration: none; }
+
+/* ─── GALLERY GRID ───────────────────────────────────────── */
+.footer-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.footer-gallery-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,.15);
+  position: relative;
+  display: block;
+}
+.footer-gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .45s ease;
+  display: block;
+}
+.footer-gallery-item:hover img { transform: scale(1.14); }
+
+.gallery-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(43,176,237,.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.footer-gallery-item:hover .gallery-hover-overlay { opacity: 1; }
+
+/* ─── INFO CARDS ─────────────────────────────────────────── */
+.info-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  transition: background .3s;
+}
+.info-card:hover { background: rgba(255,255,255,.14); }
+
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,.15);
+  border-radius: 8px;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.info-card strong {
+  display: block;
+  color: white;
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.info-card p {
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─── CONTACT BUTTON ─────────────────────────────────────── */
+.btn-footer-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.18);
+  border: 1.5px solid rgba(255,255,255,.35);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 6px;
+  transition: all .3s;
+}
+.btn-footer-contact:hover {
+  background: white;
+  color: #2b6fa3;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  text-decoration: none;
+  border-color: white;
+}
+
+/* ─── BOTTOM BAR ─────────────────────────────────────────── */
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.12);
+  position: relative;
+  z-index: 1;
+}
+.footer-bottom-inner {
+  padding: 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,.72);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-bottom-inner strong { color: white; }
+
+.footer-bottom-badges {
+  display: flex;
+  gap: 10px;
+}
+.footer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  color: rgba(255,255,255,.85);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1200px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 36px; }
+}
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; padding: 36px 0 32px; }
+  .footer-container { padding: 0 20px; }
+
+  .footer-bottom-inner { flex-direction: column; text-align: center; gap: 10px; }
+  .footer-bottom-badges { justify-content: center; }
+
+  .footer-gallery { grid-template-columns: repeat(6, 1fr); }
+  .footer-gallery-item { border-radius: 6px; }
+}
+
+@media (max-width: 480px) {
+  .footer-gallery { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .footer-wave svg { height: 50px; }
+}

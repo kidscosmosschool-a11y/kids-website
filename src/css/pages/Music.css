@@ -1,0 +1,130 @@
+/* ═══════════════════════ MUSIC.CSS ═══════════════════════ */
+.sr{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);transition-delay:var(--delay,0s)}
+.sr.sr-on{opacity:1;transform:none}
+
+.music-page{width:100%;overflow-x:hidden;background:white}
+.mu-container{max-width:1280px;margin:0 auto;padding:0 28px}
+
+/* ─── HERO ────────────────────────────────────────────────── */
+.mu-hero{position:relative;overflow:hidden;min-height:460px;padding:90px 28px 110px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(135deg,#040e28 0%,#09405f 40%,#5eb8e4 75%,#5fc8a0  100%)}
+.mu-hero-blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.07)}
+.mhb1{width:450px;height:450px;top:-150px;right:-110px;animation:bP 8s ease-in-out infinite}
+.mhb2{width:300px;height:300px;bottom:-100px;left:3%;animation:bP 10s ease-in-out infinite 3s}
+@keyframes bP{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+
+/* Soundwave bars animation */
+.mu-bars{position:absolute;bottom:44px;left:0;right:0;height:60px;display:flex;align-items:flex-end;justify-content:center;gap:4px;z-index:1;pointer-events:none}
+.mu-bar{width:6px;border-radius:3px 3px 0 0;background:rgba(255,255,255,.2);animation:barDance 1.2s ease-in-out infinite alternate}
+.mu-bar:nth-child(odd){animation-duration:0.9s}
+.mu-bar:nth-child(3n){animation-duration:1.5s;background:rgba(36, 210, 236, 0.4)}
+@keyframes barDance{from{height:8px}to{height:calc(12px + var(--bi) * 3px)}}
+
+.mu-hero-inner{position:relative;z-index:3;max-width:680px}
+.mu-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.14);backdrop-filter:blur(12px);color:white;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:8px 22px;border-radius:50px;border:1px solid rgba(255,255,255,.28);margin-bottom:22px;cursor:pointer;transition:background .25s;animation:hIn .7s both}
+.mu-pill:hover{background:rgba(255,255,255,.28)}
+.mu-dot{width:7px;height:7px;border-radius:50%;background:#ffd700;animation:ldot 2s ease-in-out infinite}
+@keyframes ldot{0%{box-shadow:0 0 0 0 rgba(255,215,0,.7)}70%{box-shadow:0 0 0 8px rgba(255,215,0,0)}100%{box-shadow:0 0 0 0 rgba(255,215,0,0)}}
+@keyframes hIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+.mu-hero-inner h1{font-size:clamp(36px,6vw,66px);color:white;font-weight:900;line-height:1.1;margin:0 0 18px;letter-spacing:-2px;text-shadow:0 3px 24px rgba(0,0,0,.4);animation:hIn .8s .15s both}
+.mu-hero-inner h1 em{font-style:normal;background:linear-gradient(90deg,#ffd700,#ff9500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.mu-hero-inner p{font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,.87);margin:0 0 24px;line-height:1.7;animation:hIn .8s .3s both}
+.mu-crumb{display:inline-flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.65);margin-bottom:22px;animation:hIn .8s .45s both}
+.mu-crumb a{color:rgba(255,255,255,.65);text-decoration:none;transition:color .25s}.mu-crumb a:hover{color:white}
+.mu-crumb span:last-child{color:white;font-weight:700}
+.mu-crumb span{color:rgba(255,255,255,.35);font-size:18px}
+.mu-glitter-btn{background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.4);color:white;font-size:15px;font-weight:800;padding:12px 32px;border-radius:50px;cursor:pointer;transition:all .3s;animation:hIn .8s .6s both}
+.mu-glitter-btn:hover{background:rgba(255,255,255,.28);transform:scale(1.07) translateY(-2px)}
+
+/* Instrument emoji ticker */
+.mu-instrument-bar{position:absolute;bottom:0;left:0;right:0;height:44px;background:rgba(0,0,0,.2);backdrop-filter:blur(8px);overflow:hidden;display:flex;align-items:center;z-index:4}
+.mu-inst-track{display:flex;animation:tickerS 18s linear infinite;white-space:nowrap}
+.mu-inst-item{font-size:22px;padding:0 18px;opacity:.7}
+@keyframes tickerS{from{transform:translateX(0)}to{transform:translateX(-33.333%)}}
+
+.mu-hero-wave{position:absolute;bottom:-1px;left:0;right:0;line-height:0;z-index:5}
+.mu-hero-wave svg{width:100%;height:80px;display:block}
+
+/* ─── GLITTER ─────────────────────────────────────────────── */
+.mu-glitter{position:fixed;background:radial-gradient(circle,#ffd700,#e91e8c,#3730a3);border-radius:50%;pointer-events:none;z-index:99999;animation:glitterMove var(--dur,2s) linear forwards}
+@keyframes glitterMove{to{transform:translate(var(--gx),var(--gy));opacity:0}}
+
+/* ─── STAT BAR ────────────────────────────────────────────── */
+.mu-statbar{display:grid;grid-template-columns:repeat(4,1fr);background:white;border-bottom:2px solid #e8e0ff;box-shadow:0 4px 20px rgba(55,48,163,.08)}
+.mu-stat{display:flex;flex-direction:column;align-items:center;padding:24px 12px;border-right:1px solid #e8e0ff;text-align:center;transition:background .25s}
+.mu-stat:last-child{border-right:none}.mu-stat:hover{background:#f5f3ff}
+.mu-stat-e{font-size:26px;margin-bottom:6px}
+.mu-stat-n{font-size:26px;font-weight:900;color:#3730a3;line-height:1}
+.mu-stat-l{font-size:11px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+
+/* ─── SECTIONS ────────────────────────────────────────────── */
+.mu-section{padding:56px 0 20px}
+.dance-section{background:#fdf5ff}
+.mu-sec-head{text-align:center;margin-bottom:36px}
+.mu-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;padding:5px 16px;border-radius:50px;margin-bottom:12px}
+.mu-tag.music{background:#e8e0ff;color:#3730a3;border:1px solid #ccc4ff}
+.mu-tag.dance{background:#ffe0f5;color:#3e17cc;border:1px solid #f9b8dc}
+.mu-sec-head h2{font-size:clamp(24px,3vw,30px);font-weight:900;color:#1a0a3d;margin:8px 0 12px}
+.mu-sec-head p{font-size:15px;color:#555;max-width:520px;margin:0 auto;line-height:1.7}
+
+/* ─── ACTIVITY CARDS ──────────────────────────────────────── */
+.mu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.mu-card{border-radius:18px;overflow:hidden;background:white;box-shadow:0 4px 22px rgba(0,0,0,.08);transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;border:1px solid rgba(0,0,0,.06)}
+.mu-card:hover{transform:translateY(-10px);box-shadow:0 20px 52px rgba(0,0,0,.12)}
+.mu-card-img{position:relative;height:190px;overflow:hidden;background:#e8e0ff}
+.mu-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.mu-card:hover .mu-card-img img{transform:scale(1.1)}
+.mu-card-veil{position:absolute;inset:0;transition:opacity .3s}
+.mu-card:hover .mu-card-veil{opacity:.6}
+.mu-card-emoji{position:absolute;top:12px;right:14px;font-size:28px;filter:drop-shadow(0 2px 5px rgba(0,0,0,.3));animation:eFloat 2.8s ease-in-out infinite}
+@keyframes eFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.mu-card-sub{position:absolute;bottom:10px;left:12px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);color:rgba(255,255,255,.9);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 11px;border-radius:50px}
+.mu-card-body{padding:18px 20px 20px}
+.mu-card-body h3{font-size:16px;font-weight:900;margin:0 0 8px}
+.mu-card-body p{font-size:13px;color:#555;line-height:1.65;margin:0 0 12px}
+.mu-card-accent{height:3px;border-radius:2px;width:36px;transition:width .4s ease}
+.mu-card:hover .mu-card-accent{width:72px}
+
+/* ─── WAVE DIVIDER ────────────────────────────────────────── */
+.mu-divider{line-height:0;margin-top:40px}
+.mu-divider svg{width:100%;height:60px;display:block}
+
+/* ─── BENEFITS ────────────────────────────────────────────── */
+.mu-benefits{background:#f4f0ff;padding:56px 0 64px}
+.mu-benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.mu-benefit-card{background:white;border-radius:16px;padding:26px 22px;border:1px solid #e0d5ff;transition:transform .3s,box-shadow .3s}
+.mu-benefit-card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(55,48,163,.12)}
+.mu-bc-e{font-size:30px;margin-bottom:12px}
+.mu-benefit-card h4{font-size:15px;font-weight:800;color:#1a0a3d;margin:0 0 8px}
+.mu-benefit-card p{font-size:13.5px;color:#555;line-height:1.65;margin:0}
+
+/* ─── CTA ─────────────────────────────────────────────────── */
+.mu-cta{background:linear-gradient(135deg,#040e28 0%,#09405f 40%,#5eb8e4 75%,#5fc8a0  100%);padding:64px 28px;position:relative;overflow:hidden}
+.mu-cta-b{position:absolute;border-radius:50%;background:rgba(255,255,255,.07)}
+.c1{width:380px;height:380px;top:-130px;left:-80px;animation:bP 7s ease-in-out infinite}
+.c2{width:260px;height:260px;bottom:-80px;right:6%;animation:bP 9s ease-in-out infinite 2s}
+.mu-cta-in{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.mu-cta-in h2{font-size:clamp(22px,3vw,30px);color:white;font-weight:900;margin:0 0 8px}
+.mu-cta-in p{color:rgba(255,255,255,.82);font-size:15px;max-width:480px;margin:0}
+.mu-cta-btns{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.mu-btn-w{display:inline-flex;align-items:center;gap:8px;background:white;color:#1a0a3d;padding:14px 36px;border-radius:50px;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 6px 24px rgba(0,0,0,.15);transition:all .3s}
+.mu-btn-w:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.2);text-decoration:none;color:#3730a3}
+.mu-btn-glitter{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.5);color:white;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:800;cursor:pointer;transition:all .3s}
+.mu-btn-glitter:hover{background:rgba(255,255,255,.28);transform:scale(1.05)}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:1024px){.mu-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){
+  .mu-hero{padding:72px 18px 90px}
+  .mu-container{padding:0 18px}
+  .mu-statbar{grid-template-columns:repeat(2,1fr)}.mu-stat:nth-child(2){border-right:none}
+  .mu-benefits-grid{grid-template-columns:repeat(2,1fr)}
+  .mu-cta-in{flex-direction:column;text-align:center}
+  .mu-cta-btns{justify-content:center}
+}
+@media(max-width:500px){
+  .mu-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .mu-card-img{height:140px}
+  .mu-benefits-grid{grid-template-columns:1fr}
+}
