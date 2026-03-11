@@ -28,17 +28,24 @@ import habitsImg from '../assets/img/habits.jpg';
 import parentsImg from '../assets/img/parents.jpg';
 
 
+// ✅ FIXED: lower threshold + no negative rootMargin so cards are always detected
 function useScrollReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll('.sr');
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('sr-visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    const timer = setTimeout(() => {
+      const els = document.querySelectorAll('.sr');
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('sr-visible');
+            io.unobserve(e.target);
+          }
+        }),
+        { threshold: 0.01, rootMargin: '0px 0px 0px 0px' }
+      );
+      els.forEach((el) => io.observe(el));
+      return () => io.disconnect();
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 }
 
@@ -75,10 +82,11 @@ function Counter({ end, label, icon, suffix = '+' }) {
   );
 }
 
+// ✅ FIXED: pointerEvents none on both wrapper and spans
 function Particles({ count = 14 }) {
   const emojis = ['🌟','✨','🎨','🎶','📚','🌱','💡','🎭','🌈','⭐'];
   return (
-    <div className="particles" aria-hidden="true">
+    <div className="particles" aria-hidden="true" style={{ pointerEvents: 'none' }}>
       {Array.from({ length: count }).map((_, i) => (
         <span key={i} className="particle" style={{
           left:              `${(i / count) * 95 + 2}%`,
@@ -86,6 +94,7 @@ function Particles({ count = 14 }) {
           animationDuration: `${7 + (i % 6)}s`,
           fontSize:          `${11 + (i % 4) * 4}px`,
           opacity:           0.13 + (i % 5) * 0.04,
+          pointerEvents:     'none',
         }}>
           {emojis[i % emojis.length]}
         </span>
@@ -97,7 +106,7 @@ function Particles({ count = 14 }) {
 
 function Carousel() {
   const [current, setCurrent] = useState(0);
-  const [dir, setDir]         = useState('next'); 
+  const [dir, setDir]         = useState('next');
 
   const slides = [
     { image: img20, title: 'Where Little Minds Grow Big Dreams 🌱', desc: 'A safe, joyful and creative learning environment for your child.', btn1: { text: 'Learn More', link: '/about' },      btn2: { text: 'Enroll Now',   link: '/admission' } },
@@ -119,7 +128,6 @@ function Carousel() {
 
   return (
     <div className="carousel" role="region" aria-label="School highlights">
-      {/* Slides */}
       {slides.map((slide, idx) => (
         <div key={idx}
           className={`carousel-slide ${idx === current ? 'active' : ''}`}
@@ -141,18 +149,15 @@ function Carousel() {
         </div>
       ))}
 
-      {/* Slide counter top-right */}
       <div className="carousel-counter" aria-hidden="true">
         <span className="c-curr">{String(current + 1).padStart(2, '0')}</span>
         <span className="c-sep"> / </span>
         <span>{String(slides.length).padStart(2, '0')}</span>
       </div>
 
-      {/* Arrows */}
       <button className="carousel-arrow carousel-prev" onClick={() => go(current - 1)} aria-label="Previous slide">&#8249;</button>
       <button className="carousel-arrow carousel-next" onClick={() => go(current + 1)} aria-label="Next slide">&#8250;</button>
 
-      {/* Dot indicators */}
       <div className="carousel-indicators">
         {slides.map((_, idx) => (
           <button key={idx}
@@ -163,7 +168,6 @@ function Carousel() {
         ))}
       </div>
 
-      {/* Auto-play progress bar */}
       <div className="carousel-progress-wrap">
         <div className="carousel-progress-bar" key={current} />
       </div>
@@ -190,7 +194,6 @@ function AboutSection() {
       <div className="container">
         <div className="about-grid">
 
-          {/* ── Text ── */}
           <div className="about-text sr sr-left">
             <span className="section-tag">Who We Are</span>
             <h2>About Kids Cosmos School 🌟</h2>
@@ -235,7 +238,6 @@ function AboutSection() {
             </div>
           </div>
 
-          {/* ── Video ── */}
           <div className="about-video sr sr-right">
             <div className="video-frame">
               <div className="vf-corner tl" /><div className="vf-corner tr" />
@@ -293,9 +295,9 @@ function ActivitiesSection() {
     { icon:'🎨', title:'Art & Craft',               desc:'Drawing, painting, and creative crafts develop imagination, fine motor skills, and joyful self-expression.',      link:'/art-crafts',  color:'#f0fff4' },
     { icon:'🎭', title:'Drama',                     desc:'Role-play and performances help children develop communication skills, imagination, and self-confidence.',         link:'/dramas',      color:'#fff8ee' },
     { icon:'⚽', title:'Sports & Games',            desc:'Fun sports improve strength, teamwork, discipline, and promote a healthy and active lifestyle for children.',      link:'/sports',      color:'#f0f8ff' },
-    { icon:'🔬', title:'Fun Science',               desc:'Hands-on experiments spark curiosity and help children explore science through joyful play and discovery.',         link:'/science',     color:'#f5f0ff' },
+    { icon:'🔬', title:'Fun Science',               desc:'Hands-on experiments spark curiosity and help children explore science through joyful play and discovery.',        link:'/science',     color:'#f5f0ff' },
     { icon:'📖', title:'Storytelling & Oratory',   desc:'Stories, show-and-tell, and speaking activities build language skills and confident communication.',               link:'/story',       color:'#fffef0' },
-    { icon:'🚌', title:'Outdoor Trips',             desc:'Educational trips give children real-world exposure, fun learning experiences, and joyful shared memories.',       link:'/trip',        color:'#f0fff8' },
+    { icon:'🚌', title:'Outdoor Trips',             desc:'Educational trips give children real-world exposure, fun learning experiences, and joyful shared memories.',      link:'/trip',        color:'#f0fff8' },
     { icon:'🌟', title:'Parents Day & Talent Show',desc:'Celebrations where children showcase their talents and parents share joyful school moments together.',             link:'/parents-day', color:'#fff5f0' },
   ];
 
@@ -356,7 +358,6 @@ function TestimonialsSection() {
         </div>
 
         <div className="testimonials-layout sr">
-          {/* Big featured quote */}
           <div className="testimonial-featured">
             <div className="t-quote-mark">"</div>
             <p className="t-text" key={active}>{testimonials[active].text}</p>
@@ -370,7 +371,6 @@ function TestimonialsSection() {
             </div>
           </div>
 
-          {/* Thumb selector */}
           <div className="testimonial-thumbs">
             {testimonials.map((t, i) => (
               <button key={i}
