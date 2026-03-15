@@ -21,6 +21,7 @@ const NAV_ITEMS = [
     ],
   },
   { label: 'Gallery', path: '/Gallery' },
+  { label: 'Blog',    path: '/blog' },
   { label: 'Contact', path: '/Contact' },
 ];
 

@@ -10,13 +10,6 @@ import img9  from '../assets/img/9.jpg';
 import principalImg from '../assets/img/user.jpeg';
 import video1 from '../assets/img/video1.mp4';
 
-import gallery1 from '../assets/img/1.jpg';
-import gallery2 from '../assets/img/32.jpg';
-import gallery3 from '../assets/img/3.jpg';
-import gallery4 from '../assets/img/4.jpg';
-import gallery5 from '../assets/img/11.jpg';
-import gallery6 from '../assets/img/21.jpg';
-
 import ramImg     from '../assets/img/ram.jpeg';
 import chandraImg from '../assets/img/chandra.jpeg';
 import shobitagImg from '../assets/img/shobita.jpeg';
@@ -27,8 +20,6 @@ import childImg  from '../assets/img/child.avif';
 import habitsImg from '../assets/img/habits.jpg';
 import parentsImg from '../assets/img/parents.jpg';
 
-
-// ✅ FIXED: lower threshold + no negative rootMargin so cards are always detected
 function useScrollReveal() {
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -82,7 +73,6 @@ function Counter({ end, label, icon, suffix = '+' }) {
   );
 }
 
-// ✅ FIXED: pointerEvents none on both wrapper and spans
 function Particles({ count = 14 }) {
   const emojis = ['🌟','✨','🎨','🎶','📚','🌱','💡','🎭','🌈','⭐'];
   return (
@@ -102,7 +92,6 @@ function Particles({ count = 14 }) {
     </div>
   );
 }
-
 
 function Carousel() {
   const [current, setCurrent] = useState(0);
@@ -260,7 +249,6 @@ function AboutSection() {
   );
 }
 
-
 function CallToActionSection() {
   return (
     <div className="cta-section">
@@ -391,11 +379,30 @@ function TestimonialsSection() {
   );
 }
 
+// ── BlogSection: now pulls from blogData and uses slugs ──────────────────────
 function BlogSection() {
   const blogs = [
-    { image:childImg,  title:'Importance of Early Childhood Education',  desc:'Early education builds strong foundations for learning, confidence, communication, and social skills in young children.', link:'/blog/1', tag:'Education' },
-    { image:habitsImg, title:'Developing Healthy Habits in Children',     desc:'Simple daily routines like proper sleep, nutrition, and playtime help children grow healthier and happier.',            link:'/blog/2', tag:'Health'    },
-    { image:parentsImg,title:'Role of Parents & Teachers Together',      desc:'When parents and teachers work together, children feel more secure, motivated, and confident in their learning journey.',  link:'/blog/3', tag:'Community' },
+    {
+      image: childImg,
+      title: 'Importance of Early Childhood Education',
+      desc:  'Early education builds strong foundations for learning, confidence, communication, and social skills in young children.',
+      link:  '/blog/importance-of-early-childhood-education',
+      tag:   'Education',
+    },
+    {
+      image: habitsImg,
+      title: 'Developing Healthy Habits in Children',
+      desc:  'Simple daily routines like proper sleep, nutrition, and playtime help children grow healthier and happier.',
+      link:  '/blog/developing-healthy-habits-in-children',
+      tag:   'Health',
+    },
+    {
+      image: parentsImg,
+      title: 'Role of Parents & Teachers Together',
+      desc:  'When parents and teachers work together, children feel more secure, motivated, and confident in their learning journey.',
+      link:  '/blog/role-of-parents-and-teachers-together',
+      tag:   'Community',
+    },
   ];
 
   return (
@@ -422,6 +429,14 @@ function BlogSection() {
             </div>
           ))}
         </div>
+
+        {/* View all blogs button */}
+        <div className="blog-view-all sr">
+          <Link to="/blog" className="btn-primary-pill">
+            View All Articles <span className="btn-arrow">→</span>
+          </Link>
+        </div>
+
       </div>
     </div>
   );
@@ -445,7 +460,6 @@ function EnrollBanner() {
     </div>
   );
 }
-
 
 export default function Home() {
   useScrollReveal();
